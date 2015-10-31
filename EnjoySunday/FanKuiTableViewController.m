@@ -7,12 +7,16 @@
 //
 
 #import "FanKuiTableViewController.h"
+#import "AFNetworking.h"
+#import "MBProgressHUD.h"
 
-@interface FanKuiTableViewController ()
+@interface FanKuiTableViewController ()<UITextViewDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
 
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (nonatomic, weak) MBProgressHUD *hud;
+@property (nonatomic, weak) UIButton *button;
 @end
 
 @implementation FanKuiTableViewController
@@ -25,6 +29,60 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.textField.delegate = self;
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, 50, 30);
+    [button setTitle:@"" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(rightClick:) forControlEvents:UIControlEventTouchUpInside   ];
+    self.button = button;
+    
+    NSLog(@"%d",(self.textView.text.length > 0 && self.textField.text.length > 0));
+    
+   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.button];
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSLog(@"!!!");
+    [self.textField resignFirstResponder];
+    [self.textView resignFirstResponder];
+
+    if (!(self.textView.text.length > 0 && self.textField.text.length > 0)) {
+        [self.button setTitle:@"" forState:UIControlStateNormal];
+    }else{
+        [self.button setTitle:@"完成" forState:UIControlStateNormal];
+    }
+    return YES;
+
+}
+
+- (void)rightClick:(UIButton *)button
+{
+    
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.tableView];
+    hud.labelText = @"正在提交";
+    [self.tableView addSubview:hud];
+    self.hud = hud;
+    [self.hud show:YES];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:@"http://api.guozhoumoapp.com/v1/feedbacks" parameters:@{@"contact" : self.textField.text , @"content" : self.textView.text , @"device" : @"iPhone8%2C1" , @"os" : @"9.0.2" , @"version" : @"1.0%20%289%29"} success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"dfas");
+        [self performSelector:@selector(hudHidden) withObject:nil afterDelay:3.0];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
+
+- (void)hudHidden
+{
+    self.hud.labelText = @"提交成功";
+    [self.hud show:NO];
+    [self.hud hide:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -19,7 +19,7 @@
 {
     if(self=[super init])
     {
-        self.frame=CGRectMake(0, [UIScreen mainScreen].bounds.size.height-25, [UIScreen mainScreen].bounds.size.width, 25);
+        self.frame=CGRectMake(0, [UIScreen mainScreen].bounds.size.height-40, [UIScreen mainScreen].bounds.size.width, 40);
     }
     return self;
 }

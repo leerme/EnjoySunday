@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SingleClickedViewController : UITableViewController
+@interface SingleClickedViewController : UIViewController
 
 @property (nonatomic, copy)NSString *html;
 @property (nonatomic, copy)NSNumber *ID;

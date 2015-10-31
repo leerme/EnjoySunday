@@ -12,12 +12,12 @@
 #import "UIKit+AFNetworking.h"
 #import "SettingViewController.h"
 
-
 @interface MineViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 {
     CGRect _bgViewFrame;
     CGRect _iconFrame;
     CGRect _nameFrame;
+    NSInteger _index;
 }
 @property(nonatomic)UITableView *tableView;
 @property(nonatomic)UIImageView *iconView;
@@ -32,13 +32,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self createNav];
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"icon"])
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"name"])
     {
         [_iconView setImageWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"icon"]]];
         _nameLabel.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
         _tableView.scrollEnabled=YES;
     }
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -107,7 +106,7 @@
 
 -(void)iconClick:(UITapGestureRecognizer *)tap
 {
-    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"icon"])
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"name"])
     {
         [self pushLogin];
     }else
@@ -122,13 +121,13 @@
     LoginViewController *login=[[LoginViewController alloc] init];
     [self.navigationController pushViewController:login animated:YES];
 }
-
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex==0)
     {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"icon"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"name"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
         _iconView.image=[UIImage imageNamed:@"box_05"];
         _nameLabel.text=@"点击图片登陆";
     }
@@ -144,15 +143,10 @@
 
 -(void)leftBtn
 {
-    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"icon"])
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"name"])
     {
         [self pushLogin];
-    }else
-    {
-//        UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出" otherButtonTitles:nil];
-//        [sheet showInView:self.view];
     }
-
 }
 
 -(void)rightBtn
@@ -161,6 +155,7 @@
     SettingViewController *svc=[storyboard instantiateViewControllerWithIdentifier:@"Setting"];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:svc];
     [self presentViewController:nav animated:YES completion:nil];
+
 }
 
 
@@ -201,35 +196,8 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.view.frame.size.height-300;
+    return 40;
 }
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 40;
-//}
-//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    UIView *bgView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-//    NSArray *array=@[@"商品",@"攻略"];
-//    for(int i=0;i<2;i++)
-//    {
-//        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-//        [btn setTitle:array[i] forState:UIControlStateNormal];
-//        btn.titleLabel.font=[UIFont systemFontOfSize:15];
-//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        btn.frame=CGRectMake(i*self.view.frame.size.width/2, 0, self.view.frame.size.width/2, 40);
-//        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        btn.backgroundColor=[UIColor whiteColor];
-//        btn.layer.borderWidth=0.8;
-//        btn.tag=i;
-//        btn.layer.borderColor=[UIColor grayColor].CGColor;
-//        [bgView addSubview:btn];
-//    }
-//    _indicatorView=[[UIView alloc] initWithFrame:CGRectMake(0,38, self.view.frame.size.width/2, 2)];
-//    _indicatorView.backgroundColor=GLOBLE_COLOR;
-//    [bgView addSubview:_indicatorView];
-//    return bgView;
-//}
 
 -(void)btnClick:(UIButton *)btn
 {
@@ -238,29 +206,29 @@
         frame.origin.x=btn.tag*self.view.frame.size.width/2;
         _indicatorView.frame=frame;
     }];
+    _index=btn.tag;
+    [_tableView reloadData];
 }
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }
 
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell=[[UITableViewCell alloc] init];
-    cell.textLabel.text=@"";
+    if(_index==0)
+    {
+        cell.textLabel.text=@"喜欢的商品（0）";
+    }else
+    {
+        cell.textLabel.text=@"暂无攻略";
+    }
+    cell.textLabel.textColor=[UIColor lightGrayColor];
+    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     return cell;
 }
-
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (indexPath.section == 0) {
-//        [self performSegueWithIdentifier:@"PingFeng" sender:nil];
-//    }
-//}
 
 
 - (void)didReceiveMemoryWarning {
@@ -268,16 +236,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    // Get the new view controller using [segue destinationViewController].
-//    // Pass the selected object to the new view controller.
-//    
-//    
-//}
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

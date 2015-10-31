@@ -18,6 +18,9 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dn9-fZ-gSn">
                         <rect key="frame" x="8" y="190" width="181" height="37"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="37" id="078-Si-3d7"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -44,7 +47,6 @@
                 <constraint firstItem="Fsg-dJ-Pzu" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0Oy-fX-w5S"/>
                 <constraint firstAttribute="bottom" secondItem="Ql9-rb-UT4" secondAttribute="bottom" constant="8" id="31I-0R-Azo"/>
                 <constraint firstAttribute="trailing" secondItem="dn9-fZ-gSn" secondAttribute="trailing" constant="8" id="4av-id-oKs"/>
-                <constraint firstAttribute="bottom" secondItem="dn9-fZ-gSn" secondAttribute="bottom" constant="41" id="4iy-FM-ILA"/>
                 <constraint firstItem="Ql9-rb-UT4" firstAttribute="leading" secondItem="434-If-tN2" secondAttribute="trailing" constant="67" id="B4o-ef-8bi"/>
                 <constraint firstItem="Fsg-dJ-Pzu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BqQ-Ks-feD"/>
                 <constraint firstAttribute="bottom" secondItem="50w-h2-xPi" secondAttribute="bottom" constant="8" id="DEX-pk-rwh"/>

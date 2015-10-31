@@ -25,7 +25,7 @@
 @property(nonatomic)UIButton *btn;
 @property(nonatomic)NSMutableArray *selectBtnArray;
 @property(nonatomic)NSMutableArray *noSelectBtnArray;
-
+@property(nonatomic)UIButton *rightButton;
 @end
 
 @implementation TopNavView
@@ -97,11 +97,11 @@
     [self.topScrollView addSubview:_indicatorView];
     _indicatorView.backgroundColor=GLOBLE_COLOR;
     
-    UIButton *rightButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    rightButton.frame=CGRectMake(topW, 0, topH, topH);
-    [self addSubview:rightButton];
-    [rightButton setImage:[UIImage imageNamed:@"AppIcon29x29"] forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(rightButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    _rightButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    _rightButton.frame=CGRectMake(topW, 0, topH, topH);
+    [self addSubview:_rightButton];
+    [_rightButton setImage:[UIImage imageNamed:@"dropdown"] forState:UIControlStateNormal];
+    [_rightButton addTarget:self action:@selector(rightButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     //rightImageView.image=[UIImage imageNamed:@"AppIcon29x29"];
     //设置scollView的contensize
     _topScrollView.contentSize=CGSizeMake(topW+10 , 0);
@@ -147,6 +147,7 @@
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         b.titleLabel.font=[UIFont systemFontOfSize:15];
         b.layer.borderWidth=0.5;
+        b.tag=i;
         b.layer.borderColor=[UIColor lightGrayColor].CGColor;
         [b addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         b.layer.cornerRadius=4;
@@ -159,7 +160,36 @@
 
 -(void)btnClick:(UIButton *)btn
 {
+    _isClick=NO;
+    [self rightButtonClick:_rightButton];
+    for (UILabel *label in _labelArray) {
+        label.textColor=[UIColor grayColor];
+    }
+    UILabel *label=_labelArray[btn.tag];
+    label.textColor=GLOBLE_COLOR;
+    [UIView animateWithDuration:0.2 animations:^{
+        if(btn.tag==1)
+        {
+            _topScrollView.contentOffset=CGPointMake(btn.tag *label.frame.size.width-10, 0);
+
+        }else
+        {
+            _topScrollView.contentOffset=CGPointMake(btn.tag *label.frame.size.width, 0);
+        }
+    }];
     
+    CGRect frame=_indicatorView.frame;
+    frame.origin.x=label.frame.origin.x;
+    frame.size.width=label.frame.size.width;
+    [UIView animateWithDuration:0.2 animations:^{
+        _indicatorView.frame=frame;
+
+        self.contentScrollView.contentOffset=CGPointMake(label.tag*self.frame.size.width, 0);
+    }];
+    
+    [self.delegate topNavViewWithTag:label.tag];
+    
+
 
 }
 
@@ -173,7 +203,8 @@
             frame.size.height=40;
             _dropDownNavView.frame=frame;
             _label.hidden=NO;
-            _btn.hidden=NO;
+            /*显示删除和排序按钮 */
+            //_btn.hidden=NO;
            
         }];
         [UIView animateWithDuration:0.3 animations:^{
@@ -296,6 +327,7 @@
     
     [self.delegate topNavViewWithTag:label.tag];
 }
+
 
 -(void)willMoveToSuperview:(UIView *)newSuperview
 {

@@ -6,13 +6,18 @@
 //  Copyright © 2015年 lei yu. All rights reserved.
 //
 
+#define CACHE_CLEAR_PATH [[GPSandbox path4LibraryCaches] stringByAppendingPathComponent:IMAGE_CACHE_PATH]
+#define IMAGE_CACHE_PATH @"com.hackemist.SDWebImageCache.default"
+
 #import "SettingViewController.h"
 #import "UMSocial.h"
 #import "SGActionView.h"
+#import "GPSandbox.h"
 
-@interface SettingViewController ()<UMSocialUIDelegate>
+@interface SettingViewController ()<UMSocialUIDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *type;
-
+@property (weak, nonatomic) IBOutlet UILabel *cacheLabel;
+@property(nonatomic,copy)NSString * cache;
 @end
 
 @implementation SettingViewController
@@ -29,6 +34,8 @@
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.045 green:0.681 blue:0.850 alpha:1.000];
     self.title = @"设置";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(action)];
+    
+    [self calculateCaches];
 }
 
 - (void)action
@@ -45,8 +52,6 @@
 
 - (void)share
 {
-    NSArray *loginType = @[UMShareToSina,UMShareToWechatSession,UMShareToQQ,UMShareToSina,UMShareToWechatSession,UMShareToQQ];
-    
     NSArray *shareArray=@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,UMShareToTencent,UMShareToSms,UMShareToEmail];
     
     
@@ -62,7 +67,7 @@
                          selectedHandle:^(NSInteger index){
                              NSLog(@"%ld",index);
                              
-                             [[UMSocialControllerService defaultControllerService] setShareText:@"哈哈哈哈" shareImage:nil socialUIDelegate:self];
+                             [[UMSocialControllerService defaultControllerService] setShareText:@"" shareImage:nil socialUIDelegate:self];
                              
                              [UMSocialSnsPlatformManager getSocialPlatformWithName:shareArray[index]].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                              
@@ -70,10 +75,10 @@
                              //
                              //                             snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService], YES, ^(UMSocialResponseEntity *response){
                              //                                 if (response.responseCode == UMSResponseCodeSuccess) {
-                             //
-                             UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:loginType[index]];
-                             
-                             NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
+//                             //
+//                             UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:loginType[index]];
+//                             
+//                             NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
                              
                              //                                     //B.显示用户信息
                              //                                     //获取accestoken以及新浪用户信息，得到的数据在回调Block对象形参respone的data属性
@@ -96,8 +101,94 @@
             [self share];
         }
     }
+    if (indexPath.section == 1) {
+        if (indexPath.row == 2) {
+            NSString * messageStr = [NSString stringWithFormat:@"缓存大小%@，确定要清除吗？",self.cache];
+            
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"清除缓存" message:messageStr delegate:self cancelButtonTitle:@"不了" otherButtonTitles:@"好的", nil];
+            [alertView show];
+        }
+    }
+
 }
 
+//-(void)setCache:(NSString *)cache
+//{
+////    _cache = cache;
+//    _cache = @"100";
+//    //    [self.tableView reloadData];
+//    NSIndexPath *indexPath =[NSIndexPath indexPathForRow:2 inSection:1];
+//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self clearCache];
+    }
+}
+
+
+-(void)calculateCaches
+{
+    //    NSString * cacheRootPath = [GPSandbox path4LibraryCaches];
+    //    NSString * cachePath = [[GPSandbox path4LibraryCaches] stringByAppendingPathComponent:IMAGE_CACHE_PATH];
+    
+    CGFloat cache = [self folderSizeAtPath:CACHE_CLEAR_PATH];
+    self.cache = [NSString stringWithFormat:@"%.2lfM",cache];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.cacheLabel.text = [NSString stringWithFormat:@"%.2lfM",cache];
+    });
+    
+}
+
+//单个文件的大小
+- (long long) fileSizeAtPath:(NSString*) filePath
+{
+    NSFileManager* manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:filePath]){
+        return [[manager attributesOfItemAtPath:filePath error:nil] fileSize];
+    }
+    return 0;
+}
+//遍历文件夹获得文件夹大小，返回多少M
+- (CGFloat)folderSizeAtPath:(NSString*)folderPath
+{
+    NSFileManager * manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath:folderPath])
+        return 0;
+    NSEnumerator *childFilesEnumerator = [[manager subpathsAtPath:folderPath] objectEnumerator];
+    NSString* fileName;
+    long long folderSize = 0;
+    while ((fileName = [childFilesEnumerator nextObject]) != nil)
+    {
+        NSString* fileAbsolutePath = [folderPath stringByAppendingPathComponent:fileName];
+        folderSize += [self fileSizeAtPath:fileAbsolutePath];
+    }
+    return folderSize/(1024.0*1024.0);
+}
+
+
+-(void)clearCache
+{
+    dispatch_async(
+                   dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                   , ^{
+                       
+                       NSArray *files = [[NSFileManager defaultManager]  subpathsAtPath:CACHE_CLEAR_PATH];
+                       
+                       for (NSString *fileName in files) {
+                           NSError *error;
+                           NSString *path = [CACHE_CLEAR_PATH stringByAppendingPathComponent:fileName];
+                           if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                               [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+                           }
+                       }
+                       
+                       [self calculateCaches];
+                   });
+}
 
 //
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

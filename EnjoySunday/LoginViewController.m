@@ -10,6 +10,7 @@
 #import "UMSocial.h"
 #import "SGActionView.h"
 #import "NetInterface.h"
+#import "RegisterViewController.h"
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
 @property (weak, nonatomic) IBOutlet UITextField *SecretText;
@@ -26,8 +27,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
 //    self.navigationController.navigationBar.backgroundColor=GLOBLE_COLOR;
+    self.tabBarController.tabBar.hidden=YES;
     [self.navigationController.navigationBar setShadowImage:nil];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    //    self.navigationController.navigationBar.backgroundColor=GLOBLE_COLOR;
+    self.tabBarController.tabBar.hidden=NO;
+//    [self.navigationController.navigationBar setShadowImage:nil];
+//    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,12 +44,34 @@
     [self createNav];
     [_loginBtn setBackgroundColor:GLOBLE_COLOR];
 }
+- (IBAction)loginBtnClick:(id)sender {
+    
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"name"])
+    {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil  message:@"用户名不存在" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    else if([_phoneText.text isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"name"]] && [_SecretText.text isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"name"]])
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil  message:@"用户名或密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    
+}
 
 -(void)createNav
 {
     self.title=@"登陆";
     self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"注册" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"注册" style:UIBarButtonItemStylePlain target:self action:@selector(regist)];
+}
+-(void)regist
+{
+    RegisterViewController *regist=[[RegisterViewController alloc] init];
+    [self.navigationController pushViewController:regist animated:YES];
 }
 -(void)cancel
 {
@@ -69,6 +100,7 @@
 //                 NSLog(@"%@",response.data[@"location"]);
 //             }];
              [self.navigationController popViewControllerAnimated:YES];
+             
          }
          
      });

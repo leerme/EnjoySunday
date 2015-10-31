@@ -206,11 +206,11 @@
                                             <segue destination="EH4-Lf-nPM" kind="show" id="FBt-uk-5cW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="GB4-Yu-S2v">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="GB4-Yu-S2v">
                                         <rect key="frame" x="0.0" y="275" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GB4-Yu-S2v" id="Hrb-jS-iBY">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tab_good.png" translatesAutoresizingMaskIntoConstraints="NO" id="fY7-hb-7aU">
@@ -221,9 +221,18 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清除缓存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVF-aj-Onu">
-                                                    <rect key="frame" x="46" y="11" width="321" height="21"/>
+                                                    <rect key="frame" x="46" y="11" width="77" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="77" id="4DY-dU-tzq"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.10M" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hys-Gb-TSx">
+                                                    <rect key="frame" x="131" y="13" width="203" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -231,9 +240,17 @@
                                                 <constraint firstAttribute="trailing" secondItem="BVF-aj-Onu" secondAttribute="trailing" constant="8" id="2bx-uG-oMe"/>
                                                 <constraint firstItem="fY7-hb-7aU" firstAttribute="centerY" secondItem="Hrb-jS-iBY" secondAttribute="centerY" id="WjJ-Nr-Vq9"/>
                                                 <constraint firstItem="BVF-aj-Onu" firstAttribute="leading" secondItem="fY7-hb-7aU" secondAttribute="trailing" constant="8" id="lbV-fy-TUI"/>
+                                                <constraint firstAttribute="trailing" secondItem="hys-Gb-TSx" secondAttribute="trailing" constant="8" id="o08-5g-Koh"/>
+                                                <constraint firstItem="hys-Gb-TSx" firstAttribute="leading" secondItem="BVF-aj-Onu" secondAttribute="trailing" constant="8" id="qcP-a7-Ly6"/>
+                                                <constraint firstItem="hys-Gb-TSx" firstAttribute="centerY" secondItem="Hrb-jS-iBY" secondAttribute="centerY" id="rMd-n3-aOb"/>
                                                 <constraint firstItem="BVF-aj-Onu" firstAttribute="centerY" secondItem="Hrb-jS-iBY" secondAttribute="centerY" id="rwK-Hl-04p"/>
                                                 <constraint firstItem="fY7-hb-7aU" firstAttribute="leading" secondItem="Hrb-jS-iBY" secondAttribute="leading" constant="8" id="sY9-Gb-xsB"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="2bx-uG-oMe"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="selectionStyle">
@@ -288,12 +305,13 @@
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="cacheLabel" destination="hys-Gb-TSx" id="EZ0-l0-vOm"/>
                         <outlet property="type" destination="xG4-qf-CTL" id="qdI-33-2Lm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4RQ-nT-x2j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="215.5" y="-117.5"/>
+            <point key="canvasLocation" x="280.5" y="-139.5"/>
         </scene>
         <!--About Table View Controller-->
         <scene sceneID="NWL-rz-FLJ">
@@ -868,7 +886,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kFv-0I-PW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2085.5" y="-103.5"/>
+            <point key="canvasLocation" x="2085.5" y="-139.5"/>
         </scene>
         <!--Fan Kui Table View Controller-->
         <scene sceneID="Ju1-uv-GW2">

@@ -35,6 +35,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQN-cg-yEA">
                     <rect key="frame" x="8" y="176" width="355" height="34"/>
                     <state key="normal" title="登陆"/>
+                    <connections>
+                        <action selector="loginBtnClick:" destination="-1" eventType="touchUpInside" id="GHt-qM-CVz"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="忘记密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vq-h7-cuL">
                     <rect key="frame" x="309" y="243" width="54" height="21"/>
@@ -51,14 +54,15 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMR-i3-iNK">
-                    <rect key="frame" x="55" y="333" width="57" height="61"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sas-E5-Kwy">
+                    <rect key="frame" x="269" y="333" width="57" height="61"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="61" id="3s3-tr-tg4"/>
+                        <constraint firstAttribute="width" constant="57" id="BjI-zu-Oy5"/>
+                        <constraint firstAttribute="height" constant="61" id="bYe-TL-1i7"/>
                     </constraints>
-                    <state key="normal" backgroundImage="UMS_sina_icon.png"/>
+                    <state key="normal" backgroundImage="UMS_qq_icon.png"/>
                     <connections>
-                        <action selector="sinaBtnClick:" destination="-1" eventType="touchUpInside" id="Z5R-Kw-6lH"/>
+                        <action selector="qqBtnClick:" destination="-1" eventType="touchUpInside" id="woP-2V-lxj"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpR-bQ-7Hi">
@@ -72,15 +76,14 @@
                         <action selector="weixinBtnClick:" destination="-1" eventType="touchUpInside" id="C7r-ye-nXU"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sas-E5-Kwy">
-                    <rect key="frame" x="269" y="333" width="57" height="61"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMR-i3-iNK">
+                    <rect key="frame" x="55" y="333" width="57" height="61"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="57" id="BjI-zu-Oy5"/>
-                        <constraint firstAttribute="height" constant="61" id="bYe-TL-1i7"/>
+                        <constraint firstAttribute="height" constant="61" id="3s3-tr-tg4"/>
                     </constraints>
-                    <state key="normal" backgroundImage="UMS_qq_icon.png"/>
+                    <state key="normal" backgroundImage="UMS_sina_icon.png"/>
                     <connections>
-                        <action selector="qqBtnClick:" destination="-1" eventType="touchUpInside" id="woP-2V-lxj"/>
+                        <action selector="sinaBtnClick:" destination="-1" eventType="touchUpInside" id="Z5R-Kw-6lH"/>
                     </connections>
                 </button>
             </subviews>
