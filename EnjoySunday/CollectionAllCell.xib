@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="159" id="KGk-i7-Jjw" customClass="CollectionAllCell">
+            <rect key="frame" x="0.0" y="0.0" width="431" height="170"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="431" height="169"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PiR-ZV-edi">
+                        <rect key="frame" x="8" y="4" width="415" height="161"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="___________________  。___________________" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDS-81-NqV">
+                        <rect key="frame" x="23" y="77" width="384" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="G6i-qF-zcR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体验课" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tb-E0-Sd8">
+                        <rect key="frame" x="23" y="57" width="384" height="20"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SjC-yl-Trh">
+                        <rect key="frame" x="23" y="100" width="384" height="16"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="2tb-E0-Sd8" firstAttribute="height" secondItem="CDS-81-NqV" secondAttribute="height" id="AqU-s1-AMT"/>
+                    <constraint firstAttribute="trailing" secondItem="CDS-81-NqV" secondAttribute="trailing" constant="24" id="AuI-Sc-2nH"/>
+                    <constraint firstItem="CDS-81-NqV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="D7a-om-n73"/>
+                    <constraint firstItem="SjC-yl-Trh" firstAttribute="top" secondItem="CDS-81-NqV" secondAttribute="bottom" constant="8" id="E8n-qt-QdO"/>
+                    <constraint firstAttribute="trailing" secondItem="PiR-ZV-edi" secondAttribute="trailing" constant="8" id="L4j-fK-eEP"/>
+                    <constraint firstItem="2tb-E0-Sd8" firstAttribute="leading" secondItem="CDS-81-NqV" secondAttribute="leading" id="LkN-t4-bDm"/>
+                    <constraint firstItem="PiR-ZV-edi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="N1b-dS-zoc"/>
+                    <constraint firstItem="SjC-yl-Trh" firstAttribute="leading" secondItem="CDS-81-NqV" secondAttribute="leading" id="Pl2-Et-B3T"/>
+                    <constraint firstItem="2tb-E0-Sd8" firstAttribute="width" secondItem="CDS-81-NqV" secondAttribute="width" id="WnI-WT-i8n"/>
+                    <constraint firstAttribute="bottom" secondItem="PiR-ZV-edi" secondAttribute="bottom" constant="4" id="ZGj-oC-P6M"/>
+                    <constraint firstItem="CDS-81-NqV" firstAttribute="top" secondItem="2tb-E0-Sd8" secondAttribute="bottom" id="j4I-7L-VBT"/>
+                    <constraint firstItem="CDS-81-NqV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="23" id="lJM-kd-pVR"/>
+                    <constraint firstItem="PiR-ZV-edi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="rrl-NL-Bru"/>
+                    <constraint firstItem="SjC-yl-Trh" firstAttribute="width" secondItem="CDS-81-NqV" secondAttribute="width" id="vbL-qO-ql2"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="AqU-s1-AMT"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="iconImageView" destination="PiR-ZV-edi" id="QbB-oH-b5r"/>
+                <outlet property="subTitle" destination="SjC-yl-Trh" id="sRZ-UG-PDO"/>
+                <outlet property="title" destination="2tb-E0-Sd8" id="arL-Xt-eLd"/>
+            </connections>
+            <point key="canvasLocation" x="229.5" y="246"/>
+        </tableViewCell>
+    </objects>
+</document>

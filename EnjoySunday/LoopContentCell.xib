@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="KGk-i7-Jjw" customClass="LoopContentCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m8e-2F-owm">
+                        <rect key="frame" x="8" y="8" width="304" height="141"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vvr-PM-oXO">
+                        <rect key="frame" x="251" y="16" width="50" height="25"/>
+                        <color key="backgroundColor" red="0.44359611742424243" green="0.44359611742424243" blue="0.44359611742424243" alpha="0.38" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="bFk-aK-YD9"/>
+                            <constraint firstAttribute="height" constant="25" id="jV2-hW-6sj"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <connections>
+                            <action selector="zanButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NZC-hX-anz"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyv-Kp-eoC">
+                        <rect key="frame" x="13" y="128" width="299" height="21"/>
+                        <color key="backgroundColor" red="0.44359611742424243" green="0.44359611742424243" blue="0.44359611742424243" alpha="0.080000000000000002" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Wql-A1-A0C"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Hyv-Kp-eoC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="0AJ-I9-z1U"/>
+                    <constraint firstAttribute="bottom" secondItem="Hyv-Kp-eoC" secondAttribute="bottom" id="0qU-6K-20J"/>
+                    <constraint firstAttribute="bottom" secondItem="m8e-2F-owm" secondAttribute="bottom" id="3QJ-3N-Dgc"/>
+                    <constraint firstAttribute="trailing" secondItem="Vvr-PM-oXO" secondAttribute="trailing" constant="19" id="SvO-sJ-7of"/>
+                    <constraint firstAttribute="trailing" secondItem="Hyv-Kp-eoC" secondAttribute="trailing" constant="8" id="Ue9-P4-vcd"/>
+                    <constraint firstItem="Vvr-PM-oXO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="keT-mf-T7N"/>
+                    <constraint firstAttribute="trailing" secondItem="m8e-2F-owm" secondAttribute="trailing" constant="8" id="rZi-E1-9yh"/>
+                    <constraint firstItem="m8e-2F-owm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="vFz-RE-fcW"/>
+                    <constraint firstItem="m8e-2F-owm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="z1l-0n-2xy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="image" destination="m8e-2F-owm" id="sEm-Ov-R2a"/>
+                <outlet property="titleLabel" destination="Hyv-Kp-eoC" id="d63-Q7-Gf0"/>
+                <outlet property="zanButton" destination="Vvr-PM-oXO" id="px4-Om-Zdc"/>
+            </connections>
+            <point key="canvasLocation" x="311" y="314"/>
+        </tableViewCell>
+    </objects>
+</document>
